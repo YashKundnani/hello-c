@@ -1,0 +1,54 @@
+Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click   
+        Dim divident() As Char = TextBox1.Text.ToCharArray
+
+        Dim polynomial_divisor() As Char = TextBox2.Text.ToCharArray
+
+
+        Dim n, p, t, m As Integer
+
+        n = TextBox1.Text.Length
+        p = TextBox2.Text.Length
+
+        Dim divident_2(100), perfect_divident(100) As Char
+        For j = 0 To n - 1
+            divident_2(j) = divident(j)
+            t = j
+        Next
+        For j = 1 To p - 1
+            t = t + 1
+            divident_2(t) = "0"
+        Next
+        m = n + p - 1
+        For k = 0 To m
+            If divident_2(k) = "1" Then
+                If m - k >= p Then
+                    For l = 0 To p - 1
+                        divident_2(k + l) = ExclusiveOr(divident_2(k + l), polynomial_divisor(l))
+                    Next
+                Else
+                    For t = 0 To n - 1
+                        perfect_divident(t) = divident(t)
+                    Next
+                    For t = n To m
+                        perfect_divident(t) = divident_2(t)
+
+                    Next
+
+                End If
+            End If
+        Next
+
+        TextBox3.Text = perfect_divident
+
+    End Sub
+    Private Function ExclusiveOr(ByVal b As Char, ByVal a As Char) As Char
+        If a = "1" And b = "1" Then
+            Return "0"
+        ElseIf a = "0" And b = "0" Then
+            Return "0"
+        Else
+            Return "1"
+
+        End If
+        Throw New NotImplementedException
+    End Function
